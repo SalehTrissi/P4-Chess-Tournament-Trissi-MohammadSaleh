@@ -17,14 +17,22 @@ _Tested on Windows 10 - Python version 3.11.3_
     2. [MacOS and Linux](#id-section1-2)
     3. [Generate a flake8 report](#id-section1-3)
 2. [Menu Options](#id-section2)
-    1. [Main Menu](#section2-1)
-    2. [Reports](#section2-2)
-3. [Display Examples](#section3)
+    1. [Main Menu](#id-section2-1)
+    2. [Reports](#id-section2-2)
+3. [Display Examples](#id-section3)
 
 <div id='id-section1'></div>
 
 ## 1. Project Initiation
+
+<div id='id-section1-1'></div>
+
+---------
+
+#### i. Windows :
+
 In Windows Powershell, navigate to the desired folder.
+
 ###### Project Recovery
 
         $ git clone https://github.com/SalehTrissi/P4-Chess-Tournament-Trissi-MohammadSaleh.git
@@ -32,7 +40,7 @@ In Windows Powershell, navigate to the desired folder.
 ##### Enable Virtual Environment
     $ cd P4-Chess-Tournament-Trissi-MohammadSaleh
     $ python -m venv env 
-    $ ~env\scripts\activate
+    $ env\scripts\activate
     # In cmd.exe
     venv\Scripts\activate.bat
     # In PowerShell
@@ -85,12 +93,16 @@ _Last exported report:_
 
 ## 2. Menu options
 
+----------
+
 <div id='id-section2-1'></div>
 
 #### i. Menu Principal
 ![main_menu](Images/main_menu.png)
 
 <div id='id-section2-2'></div>
+
+----------
 
 #### ii. Reports Menu
 ![main_menu](Images/reports_menu.png)
@@ -103,8 +115,12 @@ _Last exported report:_
 #### Round Games:
 ![round](Images/round_example.png)
 
+----------
+
 #### Report players :
 ![player_report](Images/players_report.png)
+
+----------
 
 #### Round Report :
 ![round_report](Images/rounds_report.png)
