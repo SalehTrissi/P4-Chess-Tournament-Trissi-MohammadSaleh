@@ -26,9 +26,9 @@ class MenuView:
 
     @staticmethod
     def title_menu():
-        print("\n----------------------------------")
-        print("\n** Your Welcome in CHESS TOURNAMENTS **")
-        print("----------------------------------")
+        print("\n-----------------------------------")
+        print(" Your Welcome in CHESS TOURNAMENTS")
+        print("-----------------------------------")
 
     @staticmethod
     def input_msg():
@@ -44,11 +44,15 @@ class MenuView:
 
     @staticmethod
     def title_create_new_player():
-        print("\t\n --- Create new player ---\n")
+        print("\n-----------------------------")
+        print("\t Create new player ")
+        print("-----------------------------\n")
 
     @staticmethod
     def title_show_list_players():
-        print("\t\n --- Table of all players ---")
+        print("\t\t\t--------------------------")
+        print("\t\t\t   Table of all players")
+        print("\t\t\t--------------------------")
 
     @staticmethod
     def title_create_new_tournament():
@@ -56,7 +60,9 @@ class MenuView:
 
     @staticmethod
     def titre_edit_existing_player():
-        print("\t --- Modify the player information ---\n")
+        print("\n--------------------------")
+        print(" Edit Player Information")
+        print("--------------------------\n")
 
     @staticmethod
     def reports_player_sorting():
