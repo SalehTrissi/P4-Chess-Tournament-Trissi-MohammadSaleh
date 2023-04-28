@@ -135,7 +135,7 @@ class ReportController:
         selected_tournament = tournaments[int(user_input) - 1]
 
         # Display the tournament header
-        self.reports_view.report_header(selected_tournament)
+        self.menu_view.report_header(selected_tournament)
 
         # Display the round report for the selected tournament
         self.reports_view.display_rounds_report(
@@ -153,7 +153,7 @@ class ReportController:
         user_input, tournaments = self.get_selected_tournament()
 
         # Display the header for the selected tournament
-        self.reports_view.report_header(tournaments[int(user_input) - 1])
+        self.menu_view.report_header(tournaments[int(user_input) - 1])
 
         # Get all rounds from the selected tournament
         rounds = tournaments[int(user_input) - 1]["list_rounds"]
@@ -175,6 +175,7 @@ class ReportController:
 
         @return: user selection, list of all tournaments
         """
+        self.menu_view.all_tournaments()
         tournaments = TournamentDatabase().load_tournament_list()
         self.menu_tournament.select_tournament(tournaments)
         self.menu_view.msg_input_prompt("select tournament")
