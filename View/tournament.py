@@ -4,7 +4,7 @@ from Controller.tournament import MenuTournamentController
 from Model.tournament import TournamentDatabase, Tournament
 
 
-class MenuTournamentNewController:
+class CreateNewTournament:
     def __init__(self):
         self.new_tournament_menu()
 
@@ -35,13 +35,13 @@ class MenuTournamentNewController:
     @staticmethod
     def validate_date(prompt, start_date=None):
         """
-        Validate the input date.
+        validate the input date.
 
         Args:
             prompt (str): The prompt to display to the user.
             start_date (str): The start date of the tournament.
 
-        Returns:
+        returns:
             str: The formatted input date.
         """
         while True:
