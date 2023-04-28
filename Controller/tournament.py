@@ -196,11 +196,21 @@ class MenuTournamentController:
             print("Error: invalid input. Please enter 'ok' to proceed "
                   "or 'back' to go back, do not leave blank..")
 
+    # Define a static method to update opponents for two players
     @staticmethod
     def update_opponents(player_1, player_2):
+        """
+           Updates the opponent list for two players.
+           :param player_1: A dictionary representing the first player.
+           :param player_2: A dictionary representing the second player.
+           :return: A tuple of two dictionaries representing
+           the updated players.
+        """
+        # Append player_2's player_id to player_1's opponent list
         player_1["opponents"].append(player_2["player_id"])
+        # Append player_2's player_id to player_1's opponent list
         player_2["opponents"].append(player_1["player_id"])
-
+        # Return both players after updating their opponents
         return player_1, player_2
 
     def next_rounds(self, tournament):
