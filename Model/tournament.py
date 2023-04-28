@@ -40,10 +40,71 @@ class Tournament:
             "end_date": self.end_date.strftime('%d/%m/%Y'),
             "description": self.description,
             "nb_current_round": self.nb_current_round,
-            "round_total": self.rounds_total,
+            "rounds_total": self.rounds_total,
             "list_players": self.list_players,
             "list_rounds": self.list_rounds,
         }
+
+    def sort_players_by_rank(self):
+        """
+        Sorts a list of players by their rank in ascending order.
+
+        Args: - players (list): A list of player dictionaries,
+        where each dictionary contains a 'name' and 'rank'
+        key-value pair.
+
+        Returns:
+        - A new list of player dictionaries sorted
+        by their rank in ascending order.
+        """
+
+        # Use the built-in `sorted` function
+        # to sort the list of players by their rank
+        sorted_players = sorted(self.list_rounds,
+                                key=lambda player: player['rank'])
+
+        return sorted_players
+
+    def sort_players_by_score(self):
+        """
+        Sorts a list of players by their score in descending order.
+
+        Args: - players (list): A list of player dictionaries,
+         where each dictionary contains a 'name' and 'score'
+        key-value pair.
+
+        Returns:
+        - A new list of player dictionaries sorted
+        by their score in descending order.
+        """
+
+        # Use the built-in `sorted` function to sort the list
+        # of players by their score in descending order
+        sorted_players = sorted(self.list_players,
+                                key=lambda player: player['score'],
+                                reverse=True)
+
+        return sorted_players
+
+    def update_tournament_db(self):
+        """
+        Updates tournament information (after each round) in the database.
+        """
+
+        tournament_table = self.tournament_db
+        tournament_info = {
+            'list_rounds': self.list_rounds,
+            'list_players': self.list_players,
+            'nb_current_round': self.nb_current_round
+        }
+        tournament_table.update(tournament_info, doc_ids=[self.tournament_id])
+
+    def update_timer(self, timer: str, info: str):
+        """
+        Update the start or end timer of the tournament.
+        """
+        db = self.tournament_db
+        db.update({info: timer}, doc_ids=[self.tournament_id])
 
 
 # Define a class to represent a player database
