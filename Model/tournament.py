@@ -1,4 +1,5 @@
 import datetime
+import json
 
 from tinydb import TinyDB
 
@@ -43,3 +44,32 @@ class Tournament:
             "list_players": self.list_players,
             "list_rounds": self.list_rounds,
         }
+
+
+# Define a class to represent a player database
+class TournamentDatabase:
+    def __init__(self):
+        # Initialize the list of tournament
+        # and load tournament data from JSON file
+        self.tournament_list = []
+        self.filename = './Database/tournament_db.json'
+        self.db = TinyDB(self.filename)
+        tournament_table = self.db.table('_default')
+        self.tournament_list = tournament_table.all()
+
+    # ADD a tournament to the database
+    def Add_new_tournament(self, tournament):
+        # Insert the tournament data to the list of tournament
+        self.db.insert(tournament)
+
+    def load_tournament_list(self):
+        # Load the JSON file and parse it as a Python object
+        tournament_table = self.db.table('_default')
+        tournament = tournament_table.all()
+        return tournament
+
+    def load_tournament_from_JSON(self):
+        # Load the JSON file and parse it as a tournament object
+        with open(self.filename, 'r') as f:
+            data = json.load(f)
+        return data
