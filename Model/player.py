@@ -90,7 +90,7 @@ class PlayersDatabase:
         # Prompt the user for new information to update
         if player:
             new_player_data = {}
-            print(f"Current information for player :")
+            print("Current information for player : ")
             print(f"\t- First name: {player['first_name']}")
             print(f"\t- Last name: {player['last_name']}")
             print(f"\t- Gender: {player['gender']}")

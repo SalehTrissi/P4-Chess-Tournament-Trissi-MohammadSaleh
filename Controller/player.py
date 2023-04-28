@@ -45,7 +45,7 @@ class MenuPlayerController:
             selected_players.append(selected_player)
 
         return selected_players
-    
+
     def table_list_players(self):
         # Query the database for all players
         players_data = self.db.all()
