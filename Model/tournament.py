@@ -15,7 +15,7 @@ class Tournament:
                  nb_current_round: int,
                  list_players: list,
                  list_rounds: list,
-                 round_total=4
+                 rounds_total=4
                  ):
         self.tournament_id = tournament_id
         self.name = name
@@ -28,7 +28,7 @@ class Tournament:
         self.nb_current_round = nb_current_round
         self.list_players = list_players
         self.list_rounds = list_rounds
-        self.round_total = round_total
+        self.rounds_total = rounds_total
         self.tournament_db = TinyDB('./Database/tournament_db.json')
 
     def to_dict_(self):
@@ -40,7 +40,7 @@ class Tournament:
             "end_date": self.end_date.strftime('%d/%m/%Y'),
             "description": self.description,
             "nb_current_round": self.nb_current_round,
-            "round_total": self.round_total,
+            "round_total": self.rounds_total,
             "list_players": self.list_players,
             "list_rounds": self.list_rounds,
         }
@@ -58,7 +58,7 @@ class TournamentDatabase:
         self.tournament_list = tournament_table.all()
 
     # ADD a tournament to the database
-    def Add_new_tournament(self, tournament):
+    def add_new_tournament(self, tournament):
         # Insert the tournament data to the list of tournament
         self.db.insert(tournament)
 
