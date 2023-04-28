@@ -1,6 +1,7 @@
 import datetime
 import json
 
+import tinydb
 from tinydb import TinyDB
 
 
@@ -66,3 +67,58 @@ class PlayersDatabase:
         with open(self.players_db, 'r') as f:
             players_list = json.load(f)
         return players_list
+
+    def update_player(self):
+        # Load the player data from the database
+        players = self.load_players_db()
+        # Print a list of all players for the user to choose from
+        print("Select a player to update:")
+        for player in players:
+            print(f"\t[{player['p_id']}]: "
+                  f"{player['first_name']} {player['last_name']}")
+        selected_p_id = int(input(
+            "\nEnter the p_id of the player to update: ")
+        )
+
+        # Find the player in the player table by p_id
+        players_table = self.db.table('_default')
+        player_query = tinydb.Query()
+        player = players_table.get(player_query.p_id == selected_p_id)
+
+        # Prompt the user for new information to update
+        if player:
+            new_player_data = {}
+            print(f"Current information for player :")
+            print(f"\tFirst name: {player['first_name']}")
+            print(f"\tLast name: {player['last_name']}")
+            print(f"\tSex: {player['sex']}")
+            print(f"\tDate of birth: {player['date_of_birth']}")
+            new_player_data['first_name'] = input(
+                "Enter new first name (press enter to keep current value): "
+            )
+            new_player_data['last_name'] = input(
+                "Enter new last name (press enter to keep current value): "
+            )
+            new_player_data['sex'] = input(
+                "Enter new sex (press enter to keep current value): "
+            )
+            new_date_of_birth = input(
+                "Enter new date of birth "
+                "(DD/MM/YYYY format, press enter to keep current value): "
+            )
+
+            if new_date_of_birth:
+                new_player_data['date_of_birth'] = \
+                    datetime.datetime.strptime(
+                        new_date_of_birth, '%d/%m/%Y').date().isoformat()
+
+            # Update the player data
+            players_table.update(
+                new_player_data, player_query.p_id == selected_p_id
+            )
+
+            print(f"\tPlayer {player['p_id']} updated successfully!")
+        else:
+            print(
+                f"Player with p_id {selected_p_id} not found in the database"
+            )
