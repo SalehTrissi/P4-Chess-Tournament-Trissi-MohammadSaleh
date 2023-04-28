@@ -1,5 +1,6 @@
 from Controller.controller import Controllers
 from Controller.player import MenuPlayerController
+from Controller.report import ReportController
 from Controller.tournament import MenuTournamentController
 from Model.player import PlayersDatabase
 from View.menu import MenuView
@@ -86,3 +87,94 @@ class MenuController:
         """Handles quitting the program"""
         self.menu_view.msg_good_bay()
         self.menu_view.exit_program()
+
+
+class ReportMenu:
+    # Constants for menu options
+    DISPLAY_ALL_PLAYERS = '1'
+    DISPLAY_PLAYERS_IN_TOURNAMENT = '2'
+    DISPLAY_ALL_TOURNAMENTS = '3'
+    DISPLAY_ROUNDS_IN_TOURNAMENT = '4'
+    DISPLAY_MATCHES_IN_TOURNAMENT = '5'
+    EXIT_OPTION = '6'
+    RETURN_TO_MENU = 'back' or 'Back'
+
+    def __init__(self):
+        # Initialize menu, menu Controller, and reports Controller
+        self.menu_view = MenuView()
+        self.menu_controller = MenuController()
+        self.reports_controller = ReportController()
+        # Initialize menu options dictionary with option 1
+        # and its corresponding function call
+        self.menu_options = {
+
+            self.DISPLAY_ALL_PLAYERS: self.player_reports_sorting,
+
+            self.DISPLAY_PLAYERS_IN_TOURNAMENT:
+                self.display_players_in_tournament,
+
+            self.DISPLAY_ALL_TOURNAMENTS:
+                self.display_all_tournaments,
+
+            self.DISPLAY_ROUNDS_IN_TOURNAMENT:
+                self.display_rounds_in_tournament,
+
+            self.DISPLAY_MATCHES_IN_TOURNAMENT:
+                self.display_matches_in_tournament,
+
+            self.EXIT_OPTION: self.menu_controller.exit_program,
+
+            self.RETURN_TO_MENU: self.reports_controller.return_to_main_menu,
+        }
+
+    def main_menu_reports(self):
+        """Displays the main menu and handles user input"""
+
+        # Display the main menu and prompt for user input
+        self.menu_view.input_msg()
+        user_input = input().lower()
+
+        # If user input matches a menu option,
+        # execute the corresponding function
+        if user_input in self.menu_options:
+            self.menu_options[user_input]()
+        else:
+            # Otherwise, display an error message and return to the main menu
+            self.menu_view.invalid_input()
+            self.menu_view.main_menu_reports()
+            self.main_menu_reports()
+
+    def player_reports_sorting(self):
+        # Call the reports_player_sorting() method
+        # from the reports_controller object
+        self.reports_controller.reports_player_sorting(
+            PlayersDatabase().load_players_db())
+        # Call the main_menu_reports() method
+        self.main_menu_reports()
+
+    def display_players_in_tournament(self):
+        # Call the display_players_of_tournament() method
+        # from the reports_controller object
+        self.reports_controller.reports_player_sorting(
+            self.reports_controller.display_players_of_tournament())
+        self.main_menu_reports()
+
+    def display_all_tournaments(self):
+        # Call the all_tournaments() method from the reports_controller object
+        self.reports_controller.all_tournaments()
+        # Call the main_menu_reports() method
+        self.main_menu_reports()
+
+    def display_rounds_in_tournament(self):
+        # Call the tournament_rounds() method
+        # from the reports_controller object
+        self.reports_controller.tournament_rounds()
+        # Call the main_menu_reports() method
+        self.main_menu_reports()
+
+    def display_matches_in_tournament(self):
+        # Call the display_tournament_matches() method
+        # from the reports_controller object
+        self.reports_controller.display_tournament_matches()
+        # Call the main_menu_reports() method
+        self.main_menu_reports()
