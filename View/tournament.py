@@ -1,5 +1,6 @@
 import datetime
 
+from Controller.player import MenuPlayerController
 from Controller.tournament import MenuTournamentController
 from Model.tournament import TournamentDatabase, Tournament
 
@@ -91,7 +92,7 @@ class CreateNewTournament:
                 "5- Enter the description of the tournament: "
             )
 
-            tournament_players = MenuTournamentController().select_players(8)
+            tournament_players = MenuPlayerController().select_players(8)
 
             tournament = Tournament(
                 tournament_id,
@@ -108,6 +109,22 @@ class CreateNewTournament:
             database.add_new_tournament(tournament.to_dict_())
 
             print("The tournament has been successfully added.")
+
+            # Ask if user wants to start the tournament
+            while True:
+                start_tournament = self.validate_input(
+                    "Do you want to start this tournament? (y/n): ")
+                if start_tournament.lower() == 'y':
+                    # Call the start_tournament() function
+                    MenuTournamentController().start_tournament(tournament)
+                    return
+                elif start_tournament.lower() == 'n':
+                    print("Returning to menu...")
+                    from Controller.main_menu import MenuController
+                    MenuController().main_menu()
+                    return
+                else:
+                    print("\n[Error]: Invalid input. Please enter 'y' or 'n'.")
 
         except Exception as e:
             print(f"Error occurred: {e}")
