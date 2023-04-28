@@ -113,7 +113,9 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+**/desktop.ini
 desktop.ini
+**/*/desktop.ini
 
 # Spyder project settings
 .spyderproject
