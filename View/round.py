@@ -80,7 +80,7 @@ class RoundViews:
             tournament (Tournament): current tournament object
         """
         # Reset the table and set the field names to be displayed
-        self.match_table.reset()
+        self.match_table.clear()
         self.match_table.field_names = RESULTS_FIELD_NAMES
 
         # Add each player's information to the table
