@@ -15,7 +15,9 @@ class MenuView:
 
     @staticmethod
     def main_menu_reports():
-        print("\n --- MENU OF REPORTS --- \n")
+        print("\n---------------------------")
+        print("\t MENU OF REPORTS ")
+        print("---------------------------\n")
         print("[1] Display all players")
         print("[2] Display players in a tournament")
         print("[3] Display all tournament")
@@ -36,7 +38,7 @@ class MenuView:
 
     @staticmethod
     def msg_input_prompt(option):
-        print(f"\nEnter {option} (type [back] for main menu) : ", end='')
+        print(f"Enter {option} (type [back] for main menu) : ", end='')
 
     @staticmethod
     def title_create_new_player():
@@ -69,8 +71,35 @@ class MenuView:
         print("--------------------------".center(70))
 
     @staticmethod
+    def sort_all_players_by_name(sorting):
+        print("-----------------------------".center(70))
+        print(f" All players ({sorting})".center(70))
+        print("-----------------------------".center(70))
+
+    @staticmethod
+    def all_tournaments():
+        print("-----------------------------".center(70))
+        print(" All tournaments".center(70))
+        print("-----------------------------".center(70))
+
+    @staticmethod
+    def display_all_players_matches(matches):
+        print("-----------------------------".center(80))
+        print(f"All played matches ({len(matches)} total)".center(80))
+        print("-----------------------------".center(80))
+
+    @staticmethod
+    def msg_all_rounds():
+        print("\n-----------------------")
+        print(" All rounds")
+        print("-----------------------\n")
+
+    @staticmethod
     def reports_player_sorting():
-        print("\nDo you want to display the player’s name or rank?")
+        print("-----------------------".center(50))
+        print(" Select a choix".center(50))
+        print("-----------------------".center(50))
+        print("Do you want to display the player’s name or rank?")
         print("[1] Sort by name")
         print("[2] Sort by rank")
         print("\n[back] Back to main menu")
@@ -88,10 +117,6 @@ class MenuView:
     def invalid_input():
         """Print error message for invalid user input"""
         print("\n*** [Error] Invalid input. Please try again ***")
-
-    @staticmethod
-    def update_rank_msg():
-        print("\nUpdate ranks ? [y/n] ", end='')
 
     @staticmethod
     def msg_return_main_menu():
@@ -116,3 +141,26 @@ class MenuView:
             print(f"{item['id']}", end=' | ')
             print(f"{item['last_name']}, {item['first_name']}", end=' | ')
             print(f"{item['date_of_birth']}", end=' | ')
+
+    @staticmethod
+    def report_header(info):
+        """Prints header for tournament reports
+
+        Args:
+            info (dict): Dictionary containing information about the tournament
+                (name, location, description, start_date, end_date,
+                nb_current_round, rounds_total)
+        """
+        print("\n\n")
+
+        h_1 = f"{info['name'].upper()}, {info['location'].title()} | " \
+              f"Description : {info['description']}"
+        h_2 = \
+            f"Start date : {info['start_date']} | " \
+            f"End date : {info['end_date']} | " \
+            f"Rounds played : {info['nb_current_round'] - 1}/" \
+            f"{info['rounds_total']}"
+
+        # Print the header
+        print(h_1)
+        print(h_2)
