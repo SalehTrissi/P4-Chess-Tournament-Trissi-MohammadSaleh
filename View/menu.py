@@ -3,12 +3,8 @@ class MenuView:
         pass
 
     @staticmethod
-    def title_menu():
-        print("\n** Your Welcome in CHESS TOURNAMENTS **")
-
-    @staticmethod
     def main_menu():
-        print("--- MAIN MENU --- \n")
+        print("\n --- MAIN MENU --- \n")
         print("[1] Create new player")
         print("[2] Edit existing player")
         print("[3] Display list of players")
@@ -29,12 +25,22 @@ class MenuView:
         print("\n[back] Return to main menu")
 
     @staticmethod
+    def title_menu():
+        print("\n----------------------------------")
+        print("\n** Your Welcome in CHESS TOURNAMENTS **")
+        print("----------------------------------")
+
+    @staticmethod
     def input_msg():
         print("\nEnter the option, then press Enter: ", end='')
 
     @staticmethod
     def msg_input_prompt(option):
         print(f"\nEnter {option} (type [back] for main menu) : ", end='')
+
+    @staticmethod
+    def tittle_create_new_player():
+        print("\t * NEW PLAYER *\n")
 
     @staticmethod
     def title_create_new_player():
@@ -74,6 +80,10 @@ class MenuView:
         print("\n*** [Error] Invalid input. Please try again ***")
 
     @staticmethod
+    def update_rank_msg():
+        print("\nUpdate ranks ? [y/n] ", end='')
+
+    @staticmethod
     def your_welcome():
         print("--- Your welcome ---\n".center(100))
 
@@ -85,3 +95,18 @@ class MenuView:
     @staticmethod
     def rank_update_header(player):
         print(f"\nUpdating {player.last_name}, {player.first_name}")
+
+    @staticmethod
+    def review_tournament(info, players):
+        print("\n\nNew tournament created with successfully")
+        print(f"Name : {info[1]}, Location :{info[2]}", end=" | ")
+        print(f"Description : {info[2]}", end=' | ')
+        print("Rounds : 4", end=' | ')
+        print(f"Time control : {info[3]}")
+        print("\nPlayers (2 total) :\n")
+
+        for item in players:
+            print(f"Player {players.index(item) + 1} : ", end='')
+            print(f"{item['id']}", end=' | ')
+            print(f"{item['last_name']}, {item['first_name']}", end=' | ')
+            print(f"{item['date_of_birth']}", end=' | ')
