@@ -1,8 +1,10 @@
 from Controller.controller import Controllers
 from Controller.player import MenuPlayerController
+from Controller.tournament import MenuTournamentController
 from Model.player import PlayersDatabase
 from View.menu import MenuView
 from View.player import AddPlayerMenu
+from View.tournament import CreateNewTournament
 
 
 class MenuController:
@@ -55,7 +57,7 @@ class MenuController:
     def create_new_tournament(self):
         """Create a new tournament"""
         self.menu_view.title_create_new_tournament()
-        AddTournamentMenu()
+        CreateNewTournament()
         self.controllers.return_or_exit()
 
     def edit_existing_player(self):
@@ -66,8 +68,8 @@ class MenuController:
 
     def load_tournament(self):
         """Handles in a progress option"""
-        self.menu_view.your_welcome()
-        MenuTournamentController().resume_tournament()
+        self.menu_view.load_a_tournament()
+        MenuTournamentController().load_tournament()
         self.controllers.return_or_exit()
 
     def reports_menu(self):
