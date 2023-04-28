@@ -25,7 +25,7 @@ class Players:
         self.opponents = []
         self.date_of_birth = datetime.datetime.strptime(
             date_of_birth, '%d/%m/%Y').date()
-        self.player_db = TinyDB('./Database/players.json')
+        self.player_db = TinyDB('./Database/players_db.json')
 
     def to_dict(self):
         return {

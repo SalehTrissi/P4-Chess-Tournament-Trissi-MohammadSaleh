@@ -39,10 +39,6 @@ class MenuView:
         print(f"\nEnter {option} (type [back] for main menu) : ", end='')
 
     @staticmethod
-    def tittle_create_new_player():
-        print("\t * NEW PLAYER *\n")
-
-    @staticmethod
     def title_create_new_player():
         print("\n-----------------------------")
         print("\t Create new player ")
@@ -56,13 +52,21 @@ class MenuView:
 
     @staticmethod
     def title_create_new_tournament():
-        print("\t\n --- Create new tournament ---\n")
+        print("\n------------------------")
+        print(" Create new tournament")
+        print("------------------------\n")
 
     @staticmethod
     def titre_edit_existing_player():
         print("\n--------------------------")
         print(" Edit Player Information")
         print("--------------------------\n")
+
+    @staticmethod
+    def load_a_tournament():
+        print("--------------------------".center(70))
+        print(" Load a tournament".center(70))
+        print("--------------------------".center(70))
 
     @staticmethod
     def reports_player_sorting():
@@ -88,10 +92,6 @@ class MenuView:
     @staticmethod
     def update_rank_msg():
         print("\nUpdate ranks ? [y/n] ", end='')
-
-    @staticmethod
-    def your_welcome():
-        print("--- Your welcome ---\n".center(100))
 
     @staticmethod
     def msg_return_main_menu():
