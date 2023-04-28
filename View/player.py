@@ -73,7 +73,8 @@ class AddPlayerMenu:
                 self.validate_player_input()
 
             player = Players(
-                player_id, first_name, last_name, gender, rank, date_of_birth
+                player_id, first_name, last_name, gender, rank,
+                date_of_birth.strftime('%d/%m/%Y')
             )
             database.add_player(player.to_dict())
 
