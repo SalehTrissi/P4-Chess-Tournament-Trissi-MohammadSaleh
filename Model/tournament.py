@@ -60,7 +60,7 @@ class Tournament:
 
         # Use the built-in `sorted` function
         # to sort the list of players by their rank
-        sorted_players = sorted(self.list_rounds,
+        sorted_players = sorted(self.list_players,
                                 key=lambda player: player['rank'])
 
         return sorted_players
