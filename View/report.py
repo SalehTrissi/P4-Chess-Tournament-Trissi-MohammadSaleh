@@ -1,4 +1,5 @@
 from prettytable import prettytable
+from View.menu import MenuView
 
 
 # Initialize the Report class and set the required field names
@@ -7,6 +8,7 @@ class Reports:
     def __init__(self):
         # Create a PrettyTable object for each report type
         self.table = prettytable.PrettyTable()
+        self.menu_view = MenuView()
 
         # Set the required field names for a player report
         self.player_report_filed_names = [
@@ -70,7 +72,7 @@ class Reports:
                 players[i]["rank"]
             ])
 
-        print(f"\n\n\n- All players ({sorting}) -\n")
+        self.menu_view.sort_all_players_by_name(sorting)
         print(self.table)
 
     def display_tournaments_report(self, tournaments):
@@ -112,7 +114,7 @@ class Reports:
             ])
 
         # Print the table with tournament data
-        print("\n\n\n- All tournaments -\n")
+        self.menu_view.all_tournaments()
         print(self.table)
 
     def display_rounds_report(self, rounds):
@@ -147,7 +149,7 @@ class Reports:
                     ])
 
         # Print the table with rounds data
-        print("\n\n- All rounds -\n")
+        self.menu_view.msg_all_rounds()
         print(self.table)
 
     def display_matches_report(self, matches):
@@ -166,28 +168,5 @@ class Reports:
             self.table.add_row(match)
 
         # Display the matches report
-        print(f"\n\n- All played matches ({len(matches)} total) -\n")
+        self.menu_view.display_all_players_matches(matches)
         print(self.table)
-
-    @staticmethod
-    def report_header(info):
-        """Prints header for tournament reports
-
-        Args:
-            info (dict): Dictionary containing information about the tournament
-                (name, location, description, start_date, end_date,
-                nb_current_round, rounds_total)
-        """
-        print("\n\n")
-
-        h_1 = f"{info['name'].upper()}, {info['location'].title()} | " \
-              f"Description : {info['description']}"
-        h_2 = \
-            f"Start date : {info['start_date']} | " \
-            f"End date : {info['end_date']} | " \
-            f"Rounds played : {info['nb_current_round'] - 1}/" \
-            f"{info['rounds_total']}"
-
-        # Print the header
-        print(h_1)
-        print(h_2)
