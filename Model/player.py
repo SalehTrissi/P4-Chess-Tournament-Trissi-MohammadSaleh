@@ -25,7 +25,7 @@ class Players:
         self.opponents = []
         self.date_of_birth = datetime.datetime.strptime(
             date_of_birth, '%d/%m/%Y').date()
-        self.player_db = TinyDB('./database/players.json')
+        self.player_db = TinyDB('./Database/players.json')
 
     def to_dict(self):
         return {
@@ -74,36 +74,39 @@ class PlayersDatabase:
         # Print a list of all players for the user to choose from
         print("Select a player to update:")
         for player in players:
-            print(f"\t[{player['p_id']}]: "
+            print(f"\t[{player['player_id']}]: "
                   f"{player['first_name']} {player['last_name']}")
-        selected_p_id = int(input(
-            "\nEnter the p_id of the player to update: ")
+        selected_player_id = int(input(
+            "\nEnter the player_id of the player to update: ")
         )
 
-        # Find the player in the player table by p_id
+        # Find the player in the player table by player_id
         players_table = self.db.table('_default')
         player_query = tinydb.Query()
-        player = players_table.get(player_query.p_id == selected_p_id)
+        player = players_table.get(
+            player_query.player_id == selected_player_id
+        )
 
         # Prompt the user for new information to update
         if player:
             new_player_data = {}
             print(f"Current information for player :")
-            print(f"\tFirst name: {player['first_name']}")
-            print(f"\tLast name: {player['last_name']}")
-            print(f"\tSex: {player['sex']}")
-            print(f"\tDate of birth: {player['date_of_birth']}")
+            print(f"\t- First name: {player['first_name']}")
+            print(f"\t- Last name: {player['last_name']}")
+            print(f"\t- Gender: {player['gender']}")
+            print(f"\t- Date of birth: {player['date_of_birth']}")
             new_player_data['first_name'] = input(
-                "Enter new first name (press enter to keep current value): "
+                "1- Enter new first name (press enter to keep current value): "
             )
             new_player_data['last_name'] = input(
-                "Enter new last name (press enter to keep current value): "
+                "2- Enter new last name (press enter to keep current value): "
             )
-            new_player_data['sex'] = input(
-                "Enter new sex (press enter to keep current value): "
+            new_player_data['gender'] = input(
+                "3- Enter new gender [M/F] "
+                "(press enter to keep current value): "
             )
             new_date_of_birth = input(
-                "Enter new date of birth "
+                "4- Enter new date of birth "
                 "(DD/MM/YYYY format, press enter to keep current value): "
             )
 
@@ -114,11 +117,12 @@ class PlayersDatabase:
 
             # Update the player data
             players_table.update(
-                new_player_data, player_query.p_id == selected_p_id
+                new_player_data, player_query.player_id == selected_player_id
             )
 
-            print(f"\tPlayer {player['p_id']} updated successfully!")
+            print(f"\t\nPlayer {player['player_id']} updated successfully!")
         else:
             print(
-                f"Player with p_id {selected_p_id} not found in the database"
+                f"Player with player_id "
+                f"{selected_player_id} not found in the database"
             )
