@@ -81,7 +81,8 @@ class Tournament:
         # Use the built-in `sorted` function to sort the list
         # of players by their score in descending order
         sorted_players = sorted(self.list_players,
-                                key=lambda player: player['score'],
+                                key=lambda player: (player["score"],
+                                                    -player["rank"]),
                                 reverse=True)
 
         return sorted_players
