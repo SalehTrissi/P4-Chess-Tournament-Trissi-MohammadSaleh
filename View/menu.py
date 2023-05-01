@@ -95,6 +95,17 @@ class MenuView:
         print("-----------------------\n")
 
     @staticmethod
+    def header_final_scour(tournament):
+        # Print the final scores and tournament details
+        print("-----------------------------".center(50))
+        print(" FINAL SCORES".center(50))
+        print("-----------------------------".center(50))
+        print(f"{tournament.name.upper()}, {tournament.location.title()} | "
+              f"Description : {tournament.description}".center(50))
+        print(f"Start : {tournament.start_date} | "
+              f"End : {tournament.end_date} ".center(50))
+
+    @staticmethod
     def reports_player_sorting():
         print("-----------------------".center(50))
         print(" Select a choix".center(50))
