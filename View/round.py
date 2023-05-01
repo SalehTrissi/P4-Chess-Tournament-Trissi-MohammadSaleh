@@ -1,5 +1,7 @@
 from prettytable import prettytable
 
+from View.menu import MenuView
+
 ROUND_FIELD_NAMES = [
     "Match #",
     "Full name P1",
@@ -22,32 +24,27 @@ RESULTS_FIELD_NAMES = [
 class RoundViews:
     def __init__(self):
         self.match_table = prettytable.PrettyTable()
+        self.menu_view = MenuView()
 
     def display_matches(self, matches):
-        """Display matches for the current round as table.
+        """display matches for current round as table
 
-        Args:
-            matches (list): A list of match tuples.
+        @param matches: list of matches tuples
         """
-        # Clear any existing data in the table.
         self.match_table.clear()
-
-        # Set the field names to the values in ROUND_FIELD_NAMES.
         self.match_table.field_names = ROUND_FIELD_NAMES
 
-        # Add each match to the table as a row.
-        for i, match in enumerate(matches):
-            # Convert the match tuple to a list.
-            row = list(match)
+        # sort matches by descending score of player 1
+        matches_sorted = sorted(
+            matches, key=lambda players: players[5], reverse=True
+        )
 
-            # Add the match number and "vs." to the row.
-            row.insert(0, f"Match {i+1}")
+        for i in range(len(matches_sorted)):
+            row = list(matches_sorted[i])
+            row.insert(0, f"Match {i + 1}")
             row.insert(4, "vs.")
-
-            # Add the row to the table.
             self.match_table.add_row(row)
 
-        # Print the table.
         print(self.match_table)
 
     @staticmethod
@@ -68,9 +65,9 @@ class RoundViews:
         header_3 = f"- ROUND {round_number}/{tournament.rounds_total} | " \
                    f"{start_time} -\n"
 
-        print(header_1.center(70, " "))
-        print(header_2.center(70, " "))
-        print(header_3.center(70, " "))
+        print(header_1.center(100, " "))
+        print(header_2.center(100, " "))
+        print(header_3.center(100, " "))
 
     def display_results(self, tournament):
         """
@@ -81,25 +78,24 @@ class RoundViews:
         """
         # Reset the table and set the field names to be displayed
         self.match_table.clear()
-        self.match_table.field_names = RESULTS_FIELD_NAMES
+        self.match_table.field_names = ['Rank', 'Player', 'Score', 'Ranking']
+
+        # Sort the players by score
+        sorted_players = sorted(tournament.list_players,
+                                key=lambda players: players["score"],
+                                reverse=True)
 
         # Add each player's information to the table
-        for i in range(len(tournament.list_players)):
+        for i, player in enumerate(sorted_players):
+            score_rounded = round(player["score"])
             self.match_table.add_row([
                 i + 1,
-                tournament.list_players[i]["last_name"] + ", " +
-                tournament.list_players[i]["first_name"],
-                tournament.list_players[i]["score"],
-                tournament.list_players[i]["rank"]
+                player["last_name"] + ", " + player["first_name"],
+                score_rounded,
+                player["rank"]
             ])
 
-        # Print the final scores and tournament details
-        print("\n\n- FINAL SCORES -\n")
-        print(f"{tournament.name.upper()}, {tournament.location.title()} | "
-              f"Description : {tournament.description}")
-        print(f"Start : {tournament.start_date} | "
-              f"End : {tournament.end_date} \n")
-
+        self.menu_view.header_final_scour(tournament)
         # Print the table with player information
         print(self.match_table)
 
