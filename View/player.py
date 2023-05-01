@@ -63,7 +63,14 @@ class AddPlayerMenu:
     # Function to add a new player to the database
     def new_player(self):
         database = PlayersDatabase()
-        num_players = int(input("How many players do you want to add? "))
+        while True:
+            try:
+                num_players = int(input(
+                    "How many players do you want to add? "
+                ))
+                break
+            except ValueError as e:
+                print(f"Invalid input: {e}. Please try again.")
 
         player_id, rank = self.get_next_id_and_rank(database)
 

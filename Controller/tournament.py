@@ -189,7 +189,7 @@ class MenuTournamentController:
                 # Enter the matches if the user entered 'ok'
 
                 # Set the end datetime of the current round to the timer
-                round_obj.end_datetime = self.timer
+                round_obj.end_datetime = datetime.now().strftime('%d/%m/%Y')
 
                 # Add the updated round to the tournament's list of rounds
                 tournament.list_rounds.append(round_obj.set_round())

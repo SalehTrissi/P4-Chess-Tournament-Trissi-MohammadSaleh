@@ -22,7 +22,8 @@ class MenuController:
         self.controllers = Controllers()
         self.menu_options = {
             self.CREATE_NEW_PLAYER_OPTION: self.create_new_player,
-            self.EDIT_EXISTING_PLAYERS_OPTION: self.edit_existing_player,
+            self.EDIT_EXISTING_PLAYERS_OPTION:
+                self.edit_or_delete_existing_player,
             self.SHOW_LIST_PLAYERS_OPTION: self.show_list_players,
             self.CREATE_NEW_TOURNAMENT_OPTION: self.create_new_tournament,
             self.LOAD_TOURNAMENT_OPTION: self.load_tournament,
@@ -61,11 +62,23 @@ class MenuController:
         CreateNewTournament()
         self.controllers.return_or_exit()
 
-    def edit_existing_player(self):
+    def edit_or_delete_existing_player(self):
         """Modify the existing player information."""
-        self.menu_view.titre_edit_existing_player()
-        PlayersDatabase().update_player()
-        self.controllers.return_or_exit()
+        while True:
+            self.menu_view.titre_edit_existing_player()
+            try:
+                user_input = input()
+                if user_input == '1':
+                    PlayersDatabase().update_player()
+                    self.controllers.return_or_exit()
+                elif user_input == '2':
+                    PlayersDatabase().delete_player()
+                    self.controllers.return_or_exit()
+                else:
+                    raise ValueError("Invalid input.")
+            except ValueError as e:
+                print(f"Error: {e}. Please enter a valid input.")
+                continue
 
     def load_tournament(self):
         """Handles in a progress option"""

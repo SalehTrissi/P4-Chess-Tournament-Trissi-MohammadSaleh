@@ -4,6 +4,8 @@ import json
 import tinydb
 from tinydb import TinyDB
 
+from Controller.controller import Controllers
+
 
 # Define a class to represent a player.py
 class Players:
@@ -50,6 +52,7 @@ class PlayersDatabase:
         self.db = TinyDB(self.players_db)
         players_table = self.db.table('_default')
         self.players_list = players_table.all()
+        self.controllers = Controllers()
 
     # Add a player to the database
     def add_player(self, player):
@@ -126,3 +129,60 @@ class PlayersDatabase:
                 f"Player with player_id "
                 f"{selected_player_id} not found in the database"
             )
+
+    def delete_player(self):
+        # Load the player data from the database
+        players = self.load_players_db()
+        # Print a list of all players for the user to choose from
+        print("\nSelect a player to delete:")
+        for player in players:
+            print(f"\t[{player['player_id']}]: "
+                  f"{player['first_name']} {player['last_name']}")
+        selected_player_id = None
+        while selected_player_id is None:
+            try:
+                selected_player_id = int(input(
+                    "\nEnter the player_id of the player to delete: "))
+            except ValueError:
+                print("Invalid input. Please enter a valid player ID.")
+                continue
+
+            # Find the player in the player table by player_id
+            players_table = self.db.table('_default')
+            player_query = tinydb.Query()
+            player = players_table.get(
+                player_query.player_id == selected_player_id
+            )
+
+            # Prompt the user to confirm the delete action
+            if player:
+                confirm = None
+                while confirm not in ('y', 'n'):
+                    confirm = input(f"Are you sure you want to delete "
+                                    f"{player['first_name']} "
+                                    f"{player['last_name']}? "
+                                    f"[y/n] ").lower()
+                    if confirm not in ('y', 'n'):
+                        print("Invalid input. Please enter 'y' or 'n'.")
+
+                if confirm == 'y':
+                    players_table.remove(
+                        player_query.player_id == selected_player_id)
+                    print(
+                        f"\t\nPlayer {player['first_name']} "
+                        f"{player['last_name']} deleted successfully!"
+                    )
+                    self.controllers.return_or_exit()
+                else:
+                    print(f"\t\nPlayer {player['first_name']} "
+                          f"{player['last_name']} not deleted.")
+                    self.controllers.return_or_exit()
+            else:
+                print(
+                    f"Player with player_id "
+                    f"{selected_player_id} not found in the database. "
+                    f"Please enter a valid player ID."
+                )
+                # Ask for another input
+                selected_player_id = None
+                continue

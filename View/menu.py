@@ -6,7 +6,7 @@ class MenuView:
     def main_menu():
         print("\n --- MAIN MENU --- \n")
         print("[1] Create new player")
-        print("[2] Edit existing player")
+        print("[2] Edit or delete existing player")
         print("[3] Display list of players")
         print("[4] Create new tournament")
         print("[5] Load tournament")
@@ -60,9 +60,13 @@ class MenuView:
 
     @staticmethod
     def titre_edit_existing_player():
-        print("\n--------------------------")
-        print(" Edit Player Information")
-        print("--------------------------\n")
+        print("\n-----------------------------------")
+        print(" Edit or delete a Player from database")
+        print("-----------------------------------\n")
+        print("You want edit or delete the player?\n")
+        print("[1] Edit the player.")
+        print("[2] Delete the player.")
+        print("Chose [1] for Edit or [2] for delete: ", end="")
 
     @staticmethod
     def load_a_tournament():
