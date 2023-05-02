@@ -94,9 +94,9 @@ class MenuView:
 
     @staticmethod
     def msg_all_rounds():
-        print("\n-----------------------")
-        print(" All rounds")
-        print("-----------------------\n")
+        print("-----------------------".center(100))
+        print(" All rounds".center(100))
+        print("-----------------------\n".center(100))
 
     @staticmethod
     def header_final_scour(tournament):
